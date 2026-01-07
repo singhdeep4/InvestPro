@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestPro - New Agent Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+    <body class="has-alert"> <div id="dev-warning" class="dev-alert-bar">
+        <span>⚠ PROTOTYPE NOTICE: This platform is currently under development. Do not attempt any real financial transactions.</span>
+        <button class="close-alert" onclick="closeAlert()">×</button>
+    </div>
+    
+    <div class="cursor-glow"></div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>NEW AGENT PROTOCOL</h2>
+            <p class="login-subtitle">Join the network. Start building wealth.</p>
+
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" required placeholder=" ">
+                    <label>Full Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" required placeholder=" ">
+                    <label>Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="pass1" required placeholder=" " 
+                           pattern="(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}"
+                           title="Must have 1 Uppercase, 1 Number, 1 Symbol, and 8+ characters"
+                           onkeyup="checkPasswordMatch()"
+                           style="padding-right: 40px;">
+                    
+                    <label>Set Passcode (8+ chars,1 Upper,1 Sym)</label>
+
+                    <span class="toggle-eye" onclick="togglePasswordVisibility()">
+                        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </span>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="pass2" required placeholder=" " 
+                           onkeyup="checkPasswordMatch()">
+                    <label>Confirm Passcode</label>
+                </div>
+
+                <p id="match-message" style="color: #ff0055; font-size: 0.8rem; display: none; margin-bottom: 20px;">
+                    ⚠ Passcodes do not match
+                </p>
+
+                <button type="submit" class="login-submit-btn">REGISTER AGENT</button>
+                
+                <div class="login-footer" style="justify-content: center;">
+                    <p style="color: #666; font-size: 0.85rem;">
+                        Already registered? <a href="login.html" style="color: #00ff88; font-weight: bold;">Login Here</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

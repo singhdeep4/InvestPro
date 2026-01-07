@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestPro - Agent Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="has-alert">
+
+    <div id="dev-warning" class="dev-alert-bar">
+        <span>⚠ PROTOTYPE NOTICE: This platform is currently under development. Do not attempt any real financial transactions.</span>
+        <button class="close-alert" onclick="closeAlert()">×</button>
+    </div>
+
+    <div class="cursor-glow"></div>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="logo">InvestPro</div>
+            
+            <div class="user-widget">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Agent+X&background=00ff88&color=000" alt="User">
+                </div>
+                <h3>Agent X</h3>
+                <p>Level 4 Investor</p>
+            </div>
+
+            <ul class="side-menu">
+                <li onclick="showSection('mission')" class="active" id="btn-mission">
+                    <i class="fas fa-chart-pie"></i> Mission Control
+                </li>
+                <li onclick="showSection('portfolio')" id="btn-portfolio">
+                    <i class="fas fa-briefcase"></i> My Portfolio
+                </li>
+                <li onclick="showSection('market')" id="btn-market">
+                    <i class="fas fa-satellite-dish"></i> Market Feed
+                </li>
+                <li onclick="showSection('settings')" id="btn-settings">
+                    <i class="fas fa-cogs"></i> Settings
+                </li>
+            </ul>
+
+            <a href="index.html" class="logout-btn">LOGOUT</a>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1 id="page-title">MISSION CONTROL</h1>
+                <p>System Status: <span style="color: #00ff88;">ONLINE</span></p>
+            </header>
+
+            <div id="section-mission" class="dashboard-section">
+                <div class="stats-grid">
+                    <div class="glass-card stat-card">
+                        <h3>Total Invested</h3>
+                        <div class="number" id="balance-invested">₹1,50,000</div>
+                        <div class="trend up">▲ 12% this month</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <h3>Current Value</h3>
+                        <div class="number" id="balance-current">₹1,68,000</div>
+                        <div class="trend up">▲ ₹18,000 Profit</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <h3>Active Assets</h3>
+                        <div class="number">04</div>
+                        <div class="trend">Properties Owned</div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">ACTIVE MISSIONS</h2>
+                <div class="assets-list">
+                    <div class="asset-row glass-card">
+                        <div class="asset-icon">🏢</div>
+                        <div class="asset-info">
+                            <h4>Cyber Towers, Hyderabad</h4>
+                            <p>Commercial IT Park</p>
+                        </div>
+                        <div class="asset-stat">
+                            <span>Share Value</span><strong>₹5,400</strong>
+                        </div>
+                        <div class="asset-stat">
+                            <span>Monthly Rent</span><strong style="color: #00ff88;">+ ₹450</strong>
+                        </div>
+                    </div>
+                    <div class="asset-row glass-card">
+                        <div class="asset-icon">🏨</div>
+                        <div class="asset-info">
+                            <h4>Neon Plaza, Mumbai</h4>
+                            <p>Luxury Retail</p>
+                        </div>
+                        <div class="asset-stat">
+                            <span>Share Value</span><strong>₹12,000</strong>
+                        </div>
+                        <div class="asset-stat">
+                            <span>Monthly Rent</span><strong style="color: #00ff88;">+ ₹980</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-portfolio" class="dashboard-section" style="display: none;">
+                <div class="glass-card" style="padding: 0;">
+                    <table class="portfolio-table">
+                        <thead>
+                            <tr>
+                                <th>Asset Name</th>
+                                <th>Type</th>
+                                <th>Invested Date</th>
+                                <th>Shares</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cyber Towers</td>
+                                <td>Commercial</td>
+                                <td>Aug 2025</td>
+                                <td>10</td>
+                                <td>₹54,000</td>
+                                <td><span class="badge green">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Neon Plaza</td>
+                                <td>Retail</td>
+                                <td>Sept 2025</td>
+                                <td>5</td>
+                                <td>₹60,000</td>
+                                <td><span class="badge green">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Solar Farm #04</td>
+                                <td>Utility</td>
+                                <td>Jan 2026</td>
+                                <td>20</td>
+                                <td>₹36,000</td>
+                                <td><span class="badge yellow">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="section-market" class="dashboard-section" style="display: none;">
+                <div class="market-grid">
+                    
+                    <div class="glass-card market-card">
+                        <div class="badge red">HOT LISTING</div>
+                        <h3>Skyline Tower, Mumbai</h3>
+                        <p style="margin-bottom: 20px;">Pre-Launch Phase. Premium office space in BKC financial district.</p>
+                        
+                        <div class="project-details">
+                            <div class="detail-box"><span>Total Cost</span><strong>₹450 Cr</strong></div>
+                            <div class="detail-box"><span>Min Invest</span><strong>₹5,000</strong></div>
+                            <div class="detail-box"><span>Lock-in</span><strong>3 Years</strong></div>
+                        </div>
+
+                        <div class="progress-bar"><div class="fill" style="width: 85%;"></div></div>
+                        <p class="small">85% Funded • 2 Days Left</p>
+                        <button class="action-btn" onclick="openInvestModal()">INVEST NOW</button>
+                    </div>
+
+                    <div class="glass-card market-card">
+                        <div class="badge blue">NEW</div>
+                        <h3>Tech Park, Bangalore</h3>
+                        <p style="margin-bottom: 20px;">Grade A SEZ campus leased to top Fortune 500 tech giants.</p>
+                        
+                        <div class="project-details">
+                            <div class="detail-box"><span>Total Cost</span><strong>₹120 Cr</strong></div>
+                            <div class="detail-box"><span>Min Invest</span><strong>₹10,000</strong></div>
+                            <div class="detail-box"><span>Lock-in</span><strong>5 Years</strong></div>
+                        </div>
+
+                        <div class="progress-bar"><div class="fill" style="width: 15%;"></div></div>
+                        <p class="small">15% Funded • Just Started</p>
+                        <button class="action-btn">INVEST NOW</button>
+                    </div>
+
+                    <div class="glass-card market-card">
+                        <div class="badge green">SUSTAINABLE</div>
+                        <h3>Solar Farm #09, Gujarat</h3>
+                        <p style="margin-bottom: 20px;">Government-backed green energy infrastructure project.</p>
+                        
+                        <div class="project-details">
+                            <div class="detail-box"><span>Total Cost</span><strong>₹80 Cr</strong></div>
+                            <div class="detail-box"><span>Min Invest</span><strong>₹1,000</strong></div>
+                            <div class="detail-box"><span>Lock-in</span><strong>1 Year</strong></div>
+                        </div>
+
+                        <div class="progress-bar"><div class="fill" style="width: 60%;"></div></div>
+                        <p class="small">60% Funded • 1 Week Left</p>
+                        <button class="action-btn">INVEST NOW</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="section-settings" class="dashboard-section" style="display: none;">
+                <div class="glass-card settings-card">
+                    <div class="setting-row">
+                        <div>
+                            <h4>System Notifications</h4>
+                            <p>Receive email alerts for rent deposits.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <hr class="glass-divider">
+                    <div class="setting-row">
+                        <div>
+                            <h4>Two-Factor Auth</h4>
+                            <p>Secure your account with OTP.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <hr class="glass-divider">
+                    <div class="setting-row">
+                        <div>
+                            <h4>Privacy Mode</h4>
+                            <p>Hide balance on dashboard.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="privacy-toggle" onchange="togglePrivacy()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="invest-modal" class="modal-overlay" style="display: none;">
+    <div class="glass-card modal-content">
+        <h2 style="font-size: 2rem; margin-bottom: 20px;">🚀 Future Unlocked!</h2>
+        
+        <p style="font-size: 1.1rem; line-height: 1.6; color: #ddd; margin-bottom: 15px;">
+            We absolutely <strong>love</strong> that you are visiting our website and want to invest in this project!
+        </p>
+        
+        <p style="font-size: 1rem; color: #888; margin-bottom: 25px;">
+            InvestPro is still in a <strong>developing phase</strong> right now. But keep this passion alive, because one day we will definitely start this...
+        </p>
+
+        <h3 style="color: #00ff88; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px;">
+            And we all will grow together. 🌱
+        </h3>
+
+        <button class="action-btn" onclick="closeInvestModal()" style="background: #00ff88; color: black;">
+            Let's Grow! 
+        </button>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

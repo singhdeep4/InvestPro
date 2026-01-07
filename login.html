@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestPro - Agent Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">  
+    
+    <body class="has-alert"> <div id="dev-warning" class="dev-alert-bar">
+        <span>⚠ PROTOTYPE NOTICE: This platform is currently under development. Do not attempt any real financial transactions.</span>
+        <button class="close-alert" onclick="closeAlert()">×</button>
+    </div>
+
+    <div class="cursor-glow"></div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>ACCESS TERMINAL</h2>
+            <p class="login-subtitle">Enter your credentials to proceed.</p>
+
+            <form onsubmit="event.preventDefault(); window.location.href='profile.html';">
+                <div class="input-group">
+                    <input type="email" required placeholder=" ">
+                    <label>Agent ID / Email</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" required placeholder=" ">
+                    <label>Passcode</label>
+                </div>
+
+                <button type="submit" class="login-submit-btn">INITIATE SESSION</button>
+                
+                <div class="login-footer">
+                <a href="#">Forgot Passcode?</a>
+                <a href="register.html" style="color: #00ff88;">Create Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
