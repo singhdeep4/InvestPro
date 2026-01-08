@@ -12,25 +12,9 @@ body {
     color: white;
     font-family: 'Arial', sans-serif;
     overflow-x: hidden; 
-    cursor: crosshair; /* Fallback for custom cursor */
-}
-
-/* Custom Neon Cursor */
-.cursor-glow {
-    width: 40px; height: 40px;
-    border: 2px solid #00ff88;
-    border-radius: 50%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none; /* Let clicks pass through */
-    z-index: 9999;
-    box-shadow: 0 0 10px #00ff88, inset 0 0 10px #00ff88;
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
-    mix-blend-mode: difference;
-}
-.cursor-glow.active {
-    width: 20px; height: 20px;
-    background-color: #00ff88;
+    
+    /* This creates the "+" cursor */
+    cursor: crosshair; 
 }
 
 /* Basic Interaction Cursors */

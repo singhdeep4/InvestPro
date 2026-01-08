@@ -1,86 +1,94 @@
-// PART 1: TYPEWRITER EFFECT
-// This types out "WHO WE ARE" letter by letter
-const textElement = document.getElementById('typewriter');
-const textToType = "Who we are?";
-let index = 0;
+/* ==========================================================================
+   1. HOMEPAGE ANIMATIONS (Typewriter & Scroll)
+   ========================================================================== */
+
+// --- Typewriter Effect for Landing Page ---
+const textToType = "Welcome to the Future of Investing.";
+const typeWriterElement = document.getElementById('typewriter');
+let charIndex = 0;
 
 function typeWriter() {
-    if (index < textToType.length) {
-        textElement.innerHTML += textToType.charAt(index);
-        index++;
-        setTimeout(typeWriter, 150); // Speed: 150ms per letter
+    if (typeWriterElement && charIndex < textToType.length) {
+        typeWriterElement.innerHTML += textToType.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 100); // Speed of typing (ms)
     }
 }
 
-// Start typing when page loads
-window.onload = typeWriter;
-
-
-// PART 2: SCROLL ANIMATION OBSERVER
-// This watches for when the Safety Cards enter the screen
+// --- Scroll Animation (Fade In Elements) ---
+// This watches for elements with class 'hidden' and adds 'show' when they scroll into view
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('show'); // Make visible
+            entry.target.classList.add('show'); // CSS handles the fade-in
         }
     });
 });
 
-// Find all hidden elements and tell the observer to watch them
 const hiddenElements = document.querySelectorAll('.hidden');
 hiddenElements.forEach((el) => observer.observe(el));
 
-/* =========================================
-   CUSTOM CURSOR LOGIC
-   ========================================= */
-const cursor = document.querySelector('.cursor-glow');
+// Start animations when page loads
+window.onload = function() {
+    typeWriter();
+};
 
-document.addEventListener('mousemove', (e) => {
-    // Moves the ring to where your mouse is
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-});
 
-// Add a click effect (Shrink when clicking)
-document.addEventListener('mousedown', () => {
-    cursor.classList.add('active');
-});
+/* ==========================================================================
+   2. AUTHENTICATION SYSTEM (Login & Register)
+   ========================================================================== */
 
-document.addEventListener('mouseup', () => {
-    cursor.classList.remove('active');
-});
-
-/* =========================================
-   SHOW/HIDE PASSWORD LOGIC
-   ========================================= */
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('pass1');
-    const eyeIcon = document.getElementById('eye-icon');
-    
-    if (passwordInput.type === "password") {
-        // Show Password
-        passwordInput.type = "text";
-        
-        // Change Icon to "Eye Slash" (Closed)
-        eyeIcon.innerHTML = `
-            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M1 1l22 22"></path>
-            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"></path>
-        `;
+// --- Toggle Password Visibility (Eye Icon) ---
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
     } else {
-        // Hide Password
-        passwordInput.type = "password";
-        
-        // Change Icon back to "Eye Open"
-        eyeIcon.innerHTML = `
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-        `;
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
 }
 
-/* =========================================
-   DASHBOARD TABS LOGIC
-   ========================================= */
+// --- Input Validation (Regex) ---
+// Validates Email format and Password strength (8 chars, 1 number, 1 special char)
+function validateInputs() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Regex Patterns
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+
+    // Enable button only if both are valid
+    if (emailPattern.test(email) && passPattern.test(password)) {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+    } else {
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.style.opacity = "0.5";
+        submitBtn.style.cursor = "not-allowed";
+    }
+}
+
+// --- Mock Login Redirect ---
+// Simulates a login by redirecting to the dashboard
+function handleLogin(event) {
+    event.preventDefault(); // Stop form from actually submitting to a server
+    // In a real app, you would check credentials here.
+    window.location.href = "profile.html"; 
+}
+
+
+/* ==========================================================================
+   3. DASHBOARD LOGIC (Tabs & Privacy)
+   ========================================================================== */
+
+// --- Switch Tabs (Mission, Portfolio, Market, Settings) ---
 function showSection(sectionId) {
     // 1. Hide all sections
     const sections = document.querySelectorAll('.dashboard-section');
@@ -88,7 +96,7 @@ function showSection(sectionId) {
 
     // 2. Show the selected section
     const activeSection = document.getElementById('section-' + sectionId);
-    if(activeSection) {
+    if (activeSection) {
         activeSection.style.display = 'block';
     }
 
@@ -99,102 +107,68 @@ function showSection(sectionId) {
         'market': 'MARKET FEED',
         'settings': 'SYSTEM SETTINGS'
     };
-    document.getElementById('page-title').innerText = titles[sectionId];
+    const titleElement = document.getElementById('page-title');
+    if (titleElement) titleElement.innerText = titles[sectionId];
 
     // 4. Update Sidebar Active State
     const buttons = document.querySelectorAll('.side-menu li');
     buttons.forEach(btn => btn.classList.remove('active'));
-    document.getElementById('btn-' + sectionId).classList.add('active');
-}
-
-/* =========================================
-   DASHBOARD TABS LOGIC
-   ========================================= */
-function showSection(sectionId) {
-    // 1. Hide all sections
-    const sections = document.querySelectorAll('.dashboard-section');
-    sections.forEach(sec => sec.style.display = 'none');
-
-    // 2. Show the selected section
-    const activeSection = document.getElementById('section-' + sectionId);
-    if(activeSection) {
-        activeSection.style.display = 'block';
-    }
-
-    // 3. Update Title
-    const titles = {
-        'mission': 'MISSION CONTROL',
-        'portfolio': 'MY PORTFOLIO',
-        'market': 'MARKET FEED',
-        'settings': 'SYSTEM SETTINGS'
-    };
-    document.getElementById('page-title').innerText = titles[sectionId];
-
-    // 4. Update Sidebar Active State
-    const buttons = document.querySelectorAll('.side-menu li');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    document.getElementById('btn-' + sectionId).classList.add('active');
-}
-
-/* =========================================
-   CLOSE WARNING BAR LOGIC
-   ========================================= */
-function closeAlert() {
-    const alertBar = document.getElementById('dev-warning');
     
-    // 1. Remove the bar
-    if (alertBar) {
-        alertBar.style.display = 'none';
-    }
-    
-    // 2. Move navbar back up (remove the gap)
-    document.body.classList.remove('has-alert');
+    const activeBtn = document.getElementById('btn-' + sectionId);
+    if (activeBtn) activeBtn.classList.add('active');
 }
 
-/* =========================================
-   PRIVACY MODE LOGIC
-   ========================================= */
+// --- Privacy Mode (Hide Money) ---
 function togglePrivacy() {
     const isPrivate = document.getElementById('privacy-toggle').checked;
     const invested = document.getElementById('balance-invested');
     const current = document.getElementById('balance-current');
 
-    // 1. If switching to Privacy Mode (ON)
+    // Safety check in case elements don't exist
+    if (!invested || !current) return;
+
     if (isPrivate) {
-        // Save the real numbers in a 'data-value' attribute so we don't lose them
+        // Store original values in data attributes if not already stored
         if (!invested.dataset.original) invested.dataset.original = invested.innerText;
         if (!current.dataset.original) current.dataset.original = current.innerText;
 
-        // Change text to hidden dots
-        invested.innerText = '₹ ••••xx';
-        current.innerText = '₹ ••••xx';
-        
-        // Optional: Change color to gray to look "muted"
+        // Mask the values
+        invested.innerText = '₹ ••••••';
+        current.innerText = '₹ ••••••';
         invested.style.color = '#888';
         current.style.color = '#888';
-    } 
-    // 2. If switching to Normal Mode (OFF)
-    else {
-        // Restore the original numbers
+    } else {
+        // Restore original values
         if (invested.dataset.original) invested.innerText = invested.dataset.original;
         if (current.dataset.original) current.innerText = current.dataset.original;
-
-        // Restore white color
+        
         invested.style.color = 'white';
         current.style.color = 'white';
     }
 }
 
-/* =========================================
-   INVEST MODAL LOGIC
-   ========================================= */
+
+/* ==========================================================================
+   4. UI INTERACTIVITY (Modals & Alerts)
+   ========================================================================== */
+
+// --- Close Top Warning Bar ---
+function closeAlert() {
+    const alertBar = document.getElementById('dev-warning');
+    if (alertBar) {
+        alertBar.style.display = 'none';
+    }
+    // Remove the 'push down' class from body so navbar slides up
+    document.body.classList.remove('has-alert');
+}
+
+// --- Invest Future Vision Modal ---
 function openInvestModal() {
     const modal = document.getElementById('invest-modal');
-    modal.style.display = 'flex'; // Shows the modal
+    if (modal) modal.style.display = 'flex';
 }
 
 function closeInvestModal() {
     const modal = document.getElementById('invest-modal');
-    modal.style.display = 'none'; // Hides the modal
+    if (modal) modal.style.display = 'none';
 }
-
