@@ -487,3 +487,28 @@ input:checked + .slider:before { transform: translateX(24px); }
     /* Make table scrollable if it gets too wide */
     .glass-card { padding: 20px; overflow-x: auto; }
 }
+/* =========================================
+   FIX FOR LOGIN & REGISTER PAGES (Stronger)
+   ========================================= */
+
+/* 1. The Main Container */
+.login-page {
+    transition: all 0.4s ease; /* Smooth slide */
+    padding-top: 0; /* Default state (Centered) */
+}
+
+/* When Alert is OPEN, force the whole page down */
+body.has-alert .login-page {
+    padding-top: 80px; /* Big push down so you see it move */
+}
+
+/* 2. The 'Back to Home' Link */
+.back-link {
+    transition: all 0.4s ease;
+    top: 30px; /* Default position */
+}
+
+/* When Alert is OPEN, push the link way down */
+body.has-alert .back-link {
+    top: 80px; /* Push it below the yellow bar */
+}
