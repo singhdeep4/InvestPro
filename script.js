@@ -3,7 +3,7 @@
    ========================================================================== */
 
 // --- Typewriter Effect for Landing Page ---
-const textToType = "Welcome to the Future of Investing.";
+const textToType = "Who we are?";
 const typeWriterElement = document.getElementById('typewriter');
 let charIndex = 0;
 
