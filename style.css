@@ -148,7 +148,7 @@ body.has-alert .navbar { top: 40px; }
    6. HOMEPAGE: CITY REVEAL SCROLL
    ========================================================================== */
 .grand-reveal-container {
-    height: 150vh; /* Determines scrolling distance */
+    height: 115vh; /* Determines scrolling distance */
     background: linear-gradient(#000000, #0f2027);
 }
 .sticky-wrapper {
